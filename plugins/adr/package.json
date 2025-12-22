@@ -24,7 +24,7 @@
     "start": "backstage-cli package start"
   },
   "dependencies": {
-    "@backstage-community/plugin-adr-common": "workspace:^",
+    "@backstage-community/plugin-adr-common": "*",
     "@backstage/catalog-model": "^1.7.0",
     "@backstage/core-components": "^0.15.0",
     "@backstage/core-plugin-api": "^1.9.0",
@@ -48,7 +48,10 @@
     "@backstage/test-utils": "^1.6.0",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
-    "@types/react": "^17.0.0 || ^18.0.0",
+    "@types/react": "^18.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.0.0",
     "typescript": "~5.3.0"
   },
   "files": [

@@ -107,7 +107,7 @@ export class AdrClient implements AdrApi {
     try {
       return await this.fetch<Adr>(`/adrs/${encodeURIComponent(id)}`);
     } catch (error: any) {
-      if (error.message?.includes('404')) {
+      if (error.message?.toLowerCase().includes('not found') || error.message?.includes('404')) {
         return null;
       }
       throw error;
@@ -193,7 +193,7 @@ export class AdrClient implements AdrApi {
         `/templates/${encodeURIComponent(id)}`,
       );
     } catch (error: any) {
-      if (error.message?.includes('404')) {
+      if (error.message?.toLowerCase().includes('not found') || error.message?.includes('404')) {
         return null;
       }
       throw error;
@@ -227,7 +227,7 @@ export class AdrClient implements AdrApi {
     try {
       return await this.fetch<AdrPullRequest>(`/prs/${prNumber}`);
     } catch (error: any) {
-      if (error.message?.includes('404')) {
+      if (error.message?.toLowerCase().includes('not found') || error.message?.includes('404')) {
         return null;
       }
       throw error;

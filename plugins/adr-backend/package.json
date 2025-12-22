@@ -24,7 +24,7 @@
     "start": "backstage-cli package start"
   },
   "dependencies": {
-    "@backstage-community/plugin-adr-common": "workspace:^",
+    "@backstage-community/plugin-adr-common": "*",
     "@backstage/backend-common": "^0.25.0",
     "@backstage/backend-plugin-api": "^1.0.0",
     "@backstage/catalog-client": "^1.7.0",

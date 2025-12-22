@@ -1,0 +1,21 @@
+{
+  "name": "backstage-adr-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "workspaces": [
+    "plugins/*"
+  ],
+  "scripts": {
+    "build": "yarn workspaces run build",
+    "clean": "yarn workspaces run clean",
+    "lint": "yarn workspaces run lint",
+    "test": "yarn workspaces run test",
+    "tsc": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "~5.3.0"
+  }
+}

@@ -1,0 +1,1 @@
+export { AdrDetailPage } from './AdrDetailPage';

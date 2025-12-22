@@ -5,6 +5,14 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { lightTheme } from '@backstage/theme';
 import { AdrPullRequest } from '@backstage-community/plugin-adr-common';
 
+// Mock ResizeObserver for tests
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+global.ResizeObserver = ResizeObserverMock as any;
+
 const renderWithTheme = (component: React.ReactElement) => {
   return render(
     <ThemeProvider theme={lightTheme}>{component}</ThemeProvider>,

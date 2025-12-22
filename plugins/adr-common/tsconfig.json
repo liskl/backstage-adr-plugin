@@ -5,6 +5,7 @@
   "compilerOptions": {
     "outDir": "../../dist-types/plugins/adr-common",
     "rootDir": "src",
-    "composite": true
+    "composite": true,
+    "tsBuildInfoFile": "../../dist-types/plugins/adr-common/.tsbuildinfo"
   }
 }

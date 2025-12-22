@@ -5,7 +5,8 @@
   "compilerOptions": {
     "outDir": "../../dist-types/plugins/adr-backend",
     "rootDir": "src",
-    "composite": true
+    "composite": true,
+    "tsBuildInfoFile": "../../dist-types/plugins/adr-backend/.tsbuildinfo"
   },
   "references": [
     { "path": "../adr-common" }

@@ -8,7 +8,74 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Phase 2: CRUD & PR Workflow (in progress)
+- Phase 3: Search & Organization (planned)
+
+## [0.2.0] - 2024-12-22
+
+### Added
+
+#### Phase 2: CRUD & PR Workflow
+
+**ADR Editor Component**
+- `AdrMarkdownEditor` - Split-view markdown editor with live preview
+- Toolbar with formatting buttons (bold, italic, code, links, lists, headings)
+- Three view modes: Write, Preview, Split
+- Syntax highlighting and GitHub-flavored markdown support
+
+**Create ADR Wizard**
+- `AdrEditorPage` - Step-by-step wizard for creating new ADRs
+- Template selection step (MADR v3, Nygard, custom)
+- Metadata form with title, status, authors, tags, category
+- Content editing with markdown preview
+- Review step before submission
+- Automatic PR creation on submit
+
+**Edit ADR Functionality**
+- Integrated with `AdrEditorPage` for editing existing ADRs
+- Pre-populated form with existing ADR data
+- Edit button on ADR detail page
+- PR creation for changes
+
+**Delete ADR Functionality**
+- `AdrDeleteDialog` - Confirmation dialog with safety check
+- Requires typing "delete" to confirm
+- Creates PR to remove ADR from repository
+
+**Status Change**
+- `AdrStatusChangeDialog` - Visual status transition dialog
+- Shows current and new status badges
+- Dropdown with all status options and descriptions
+- Creates PR for status updates
+
+**PR Status Tracking**
+- `AdrPrStatusCard` - Card showing PR details and status
+- `AdrPendingPrsList` - List of pending PRs on dashboard
+- Open, Closed, and Merged status indicators
+- Links to GitHub PRs
+
+**Dashboard Updates**
+- "Create ADR" button in header
+- Pending Pull Requests section
+- Navigation to create/edit pages
+
+#### New Components
+- `AdrMarkdownEditor` - Markdown editor with preview
+- `AdrMetadataForm` - ADR metadata input form
+- `AdrTemplateSelector` - Template selection for new ADRs
+- `AdrDeleteDialog` - Delete confirmation dialog
+- `AdrStatusChangeDialog` - Status change dialog
+- `AdrPrStatusCard` - PR status display card
+- `AdrPendingPrsList` - Pending PRs list
+
+#### Tests
+- 4 new test files for Phase 2 components
+- 34 new tests added
+- Total: 123 tests across 12 test suites
+
+### Technical Details
+- 12 new component files added
+- ~1,800 lines of new code
+- Full TypeScript type safety maintained
 
 ## [0.1.0] - 2024-12-22
 
@@ -72,5 +139,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - React 17/18 compatible
 - Material-UI v4 components
 
-[Unreleased]: https://github.com/liskl/backstage-adr-plugin/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/liskl/backstage-adr-plugin/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/liskl/backstage-adr-plugin/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/liskl/backstage-adr-plugin/releases/tag/v0.1.0

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   Content,
   ContentHeader,
@@ -14,19 +14,36 @@ import {
 import { useApi } from '@backstage/core-plugin-api';
 import {
   Box,
+  Button,
   Chip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Divider,
   Grid,
+  IconButton,
   List,
   ListItem,
   ListItemText,
+  Menu,
+  MenuItem,
+  Snackbar,
   Typography,
   makeStyles,
 } from '@material-ui/core';
+import {
+  Edit,
+  Delete,
+  MoreVert,
+  SwapHoriz,
+} from '@material-ui/icons';
+import { Alert } from '@material-ui/lab';
 import ReactMarkdown from 'react-markdown';
 import { useAsync } from 'react-use';
 import { adrApiRef } from '../../api';
 import { AdrStatusBadge } from '../AdrList';
+import { AdrDeleteDialog, AdrStatusChangeDialog } from '../AdrActions';
 
 const useStyles = makeStyles(theme => ({
   markdown: {
@@ -101,6 +118,10 @@ const useStyles = makeStyles(theme => ({
   sidebarCard: {
     marginBottom: theme.spacing(2),
   },
+  actionButtons: {
+    display: 'flex',
+    gap: theme.spacing(1),
+  },
 }));
 
 /**
@@ -109,7 +130,18 @@ const useStyles = makeStyles(theme => ({
 export const AdrDetailPage = () => {
   const classes = useStyles();
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const adrApi = useApi(adrApiRef);
+
+  // Dialog states
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [statusDialogOpen, setStatusDialogOpen] = useState(false);
+  const [prDialogOpen, setPrDialogOpen] = useState(false);
+  const [prUrl, setPrUrl] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  // Menu state
+  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
 
   const { value: adr, loading, error } = useAsync(
     () => adrApi.getAdr(id!),
@@ -120,6 +152,29 @@ export const AdrDetailPage = () => {
     () => (id ? adrApi.getRelatedAdrs(id) : Promise.resolve([])),
     [adrApi, id],
   );
+
+  const handleEdit = () => {
+    navigate(`/adr/${encodeURIComponent(id!)}/edit`);
+  };
+
+  const handleDeleteComplete = (url: string) => {
+    setDeleteDialogOpen(false);
+    setPrUrl(url);
+    setPrDialogOpen(true);
+    setSuccessMessage('Delete PR created successfully');
+  };
+
+  const handleStatusChangeComplete = (url: string) => {
+    setStatusDialogOpen(false);
+    setPrUrl(url);
+    setPrDialogOpen(true);
+    setSuccessMessage('Status change PR created successfully');
+  };
+
+  const handlePrDialogClose = () => {
+    setPrDialogOpen(false);
+    // Optionally navigate away after delete
+  };
 
   if (loading) {
     return <Progress />;
@@ -150,7 +205,46 @@ export const AdrDetailPage = () => {
       </Header>
       <Content>
         <ContentHeader title="">
-          <AdrStatusBadge status={adr.status} size="medium" />
+          <Box className={classes.actionButtons}>
+            <AdrStatusBadge status={adr.status} size="medium" />
+            <Button
+              variant="outlined"
+              size="small"
+              startIcon={<SwapHoriz />}
+              onClick={() => setStatusDialogOpen(true)}
+            >
+              Change Status
+            </Button>
+            <Button
+              variant="outlined"
+              size="small"
+              startIcon={<Edit />}
+              onClick={handleEdit}
+            >
+              Edit
+            </Button>
+            <IconButton
+              size="small"
+              onClick={e => setMenuAnchor(e.currentTarget)}
+            >
+              <MoreVert />
+            </IconButton>
+            <Menu
+              anchorEl={menuAnchor}
+              open={Boolean(menuAnchor)}
+              onClose={() => setMenuAnchor(null)}
+            >
+              <MenuItem
+                onClick={() => {
+                  setMenuAnchor(null);
+                  setDeleteDialogOpen(true);
+                }}
+              >
+                <Delete fontSize="small" style={{ marginRight: 8 }} />
+                Delete ADR
+              </MenuItem>
+            </Menu>
+          </Box>
         </ContentHeader>
 
         <Grid container spacing={3}>
@@ -304,6 +398,63 @@ export const AdrDetailPage = () => {
             )}
           </Grid>
         </Grid>
+
+        {/* Delete Dialog */}
+        <AdrDeleteDialog
+          open={deleteDialogOpen}
+          onClose={() => setDeleteDialogOpen(false)}
+          onDeleted={handleDeleteComplete}
+          adrId={adr.id}
+          adrTitle={adr.title}
+        />
+
+        {/* Status Change Dialog */}
+        <AdrStatusChangeDialog
+          open={statusDialogOpen}
+          onClose={() => setStatusDialogOpen(false)}
+          onStatusChanged={handleStatusChangeComplete}
+          adrId={adr.id}
+          adrTitle={adr.title}
+          currentStatus={adr.status}
+        />
+
+        {/* PR Created Dialog */}
+        <Dialog open={prDialogOpen} onClose={handlePrDialogClose}>
+          <DialogTitle>Pull Request Created</DialogTitle>
+          <DialogContent>
+            <Typography>
+              A Pull Request has been created for your changes.
+              Review and merge it to apply the changes.
+            </Typography>
+            <Box mt={2}>
+              <Button
+                variant="outlined"
+                color="primary"
+                href={prUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Pull Request
+              </Button>
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handlePrDialogClose} color="primary">
+              Done
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        {/* Success Snackbar */}
+        <Snackbar
+          open={!!successMessage}
+          autoHideDuration={6000}
+          onClose={() => setSuccessMessage(null)}
+        >
+          <Alert severity="success" onClose={() => setSuccessMessage(null)}>
+            {successMessage}
+          </Alert>
+        </Snackbar>
       </Content>
     </Page>
   );

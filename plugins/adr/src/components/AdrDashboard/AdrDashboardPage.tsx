@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Content,
   ContentHeader,
@@ -10,6 +11,7 @@ import {
 import { useApi } from '@backstage/core-plugin-api';
 import {
   Box,
+  Button,
   Grid,
   Tab,
   Tabs,
@@ -18,11 +20,13 @@ import {
   Typography,
   makeStyles,
 } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ListIcon from '@material-ui/icons/List';
 import { adrApiRef } from '../../api';
 import { AdrList } from '../AdrList';
 import { AdrStatsCards } from './AdrStatsCards';
+import { AdrPendingPrsList } from '../AdrActions';
 import { useAsync } from 'react-use';
 
 const useStyles = makeStyles(theme => ({
@@ -58,6 +62,7 @@ function TabPanel(props: TabPanelProps) {
  */
 export const AdrDashboardPage = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const adrApi = useApi(adrApiRef);
   const [tabValue, setTabValue] = useState(0);
 
@@ -66,8 +71,17 @@ export const AdrDashboardPage = () => {
     [adrApi],
   );
 
+  const { value: pendingPrs, loading: prsLoading, error: prsError } = useAsync(
+    () => adrApi.getPendingPrs(),
+    [adrApi],
+  );
+
   const handleTabChange = (_event: React.ChangeEvent<{}>, newValue: number) => {
     setTabValue(newValue);
+  };
+
+  const handleCreateAdr = () => {
+    navigate('/adr/create');
   };
 
   return (
@@ -85,6 +99,14 @@ export const AdrDashboardPage = () => {
       </Header>
       <Content>
         <ContentHeader title="Decision Records">
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<Add />}
+            onClick={handleCreateAdr}
+          >
+            Create ADR
+          </Button>
           <SupportButton>
             Architecture Decision Records help teams document and track
             important technical decisions.
@@ -146,6 +168,14 @@ export const AdrDashboardPage = () => {
                     )}
                   </CardContent>
                 </Card>
+              </Grid>
+
+              <Grid item xs={12}>
+                <AdrPendingPrsList
+                  prs={pendingPrs}
+                  loading={prsLoading}
+                  error={prsError?.message}
+                />
               </Grid>
             </Grid>
           </TabPanel>

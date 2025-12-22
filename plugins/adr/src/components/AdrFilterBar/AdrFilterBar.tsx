@@ -513,6 +513,7 @@ export const AdrFilterBar = ({
         <DialogTitle>Save Filter Preset</DialogTitle>
         <DialogContent>
           <TextField
+            // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
             margin="dense"
             label="Preset Name"

@@ -13,6 +13,21 @@ class ResizeObserverMock {
 }
 global.ResizeObserver = ResizeObserverMock as any;
 
+// Suppress Material-UI deprecation warnings about findDOMNode
+const originalError = console.error;
+beforeAll(() => {
+  console.error = (...args: any[]) => {
+    if (typeof args[0] === 'string' && args[0].includes('findDOMNode is deprecated')) {
+      return;
+    }
+    originalError.call(console, ...args);
+  };
+});
+
+afterAll(() => {
+  console.error = originalError;
+});
+
 const renderWithTheme = (component: React.ReactElement) => {
   return render(
     <ThemeProvider theme={lightTheme}>{component}</ThemeProvider>,

@@ -24,7 +24,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Type check
-        run: yarn tsc
+        run: yarn tsc --build
 
       - name: Build
         run: yarn build

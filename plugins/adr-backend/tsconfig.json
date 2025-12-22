@@ -4,7 +4,8 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "outDir": "dist-types",
-    "rootDir": "src"
+    "rootDir": "src",
+    "composite": true
   },
   "references": [
     { "path": "../adr-common" }

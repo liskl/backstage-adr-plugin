@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AdrDashboardPage } from './AdrDashboard';
 import { AdrDetailPage } from './AdrDetail';
+import { AdrEditorPage } from './AdrEditor';
 
 /**
  * Main router for the ADR plugin
@@ -10,7 +11,9 @@ export const AdrRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<AdrDashboardPage />} />
+      <Route path="/create" element={<AdrEditorPage />} />
       <Route path="/:id" element={<AdrDetailPage />} />
+      <Route path="/:id/edit" element={<AdrEditorPage />} />
     </Routes>
   );
 };

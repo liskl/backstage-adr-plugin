@@ -63,10 +63,23 @@ Frontend: AdrClient → React components
 
 ### Key Frontend Components
 
-- **AdrDashboardPage**: Stats cards + tabbed dashboard/list view
-- **AdrDetailPage**: Markdown rendering with metadata sidebar
+**Core Views:**
+- **AdrDashboardPage**: Stats cards + tabbed dashboard/list view + pending PRs
+- **AdrDetailPage**: Markdown rendering with metadata sidebar + edit/delete/status actions
 - **AdrList**: Paginated table with search and status filters
 - **AdrStatusBadge**: Color-coded status chip
+
+**Editor Components** (`components/AdrEditor/`):
+- **AdrEditorPage**: Step-by-step wizard for create/edit (Template → Metadata → Content → Review)
+- **AdrMarkdownEditor**: Split-view markdown editor with live preview and formatting toolbar
+- **AdrMetadataForm**: Form for ADR metadata (title, status, authors, tags, category)
+- **AdrTemplateSelector**: Radio button selection for MADR v3, Nygard, custom templates
+
+**Action Components** (`components/AdrActions/`):
+- **AdrDeleteDialog**: Confirmation dialog requiring "delete" to be typed
+- **AdrStatusChangeDialog**: Visual status transition with dropdown selection
+- **AdrPrStatusCard**: PR status display (Open/Closed/Merged)
+- **AdrPendingPrsList**: List of pending PRs for dashboard
 
 ### API Endpoints
 
@@ -88,4 +101,8 @@ Detection is automatic based on content structure.
 
 ## Development Status
 
-Phase 1 (Core Foundation) is complete. Phase 2 (CRUD & PR Workflow) is next. See `docs/DESIGN.md` for the full roadmap and requirements.
+- **Phase 1 (Core Foundation)**: Complete - Basic ADR model, GitHub integration, list/detail views
+- **Phase 2 (CRUD & PR Workflow)**: Complete - Editor, create/edit/delete dialogs, PR tracking
+- **Phase 3 (Search & Organization)**: In progress - Full-text search, advanced filters, saved presets
+
+See `docs/DESIGN.md` for the full roadmap and requirements.

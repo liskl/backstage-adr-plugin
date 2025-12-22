@@ -478,13 +478,13 @@ All significant decisions will be documented.
 - [x] Dashboard view with stats cards
 - [x] Search and status filter UI
 
-### Phase 2: CRUD & PR Workflow
-- [ ] ADR editor component (markdown editor with preview)
-- [ ] Create ADR wizard (generates PR)
-- [ ] Edit ADR (generates PR)
-- [ ] Delete ADR (generates PR)
-- [ ] PR status tracking UI
-- [ ] Status change functionality
+### Phase 2: CRUD & PR Workflow ✅
+- [x] ADR editor component (markdown editor with preview)
+- [x] Create ADR wizard (generates PR)
+- [x] Edit ADR (generates PR)
+- [x] Delete ADR (generates PR)
+- [x] PR status tracking UI
+- [x] Status change functionality
 
 ### Phase 3: Search & Organization
 - [x] Full-text search (basic implementation)

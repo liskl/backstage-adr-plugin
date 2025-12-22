@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { AdrList } from './AdrList';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { lightTheme } from '@backstage/theme';
@@ -132,52 +132,6 @@ describe('AdrList', () => {
     });
   });
 
-  describe('search and filters', () => {
-    it('should render search input when onSearchChange provided', () => {
-      const onSearchChange = jest.fn();
-
-      renderWithProviders(
-        <AdrList
-          adrs={mockAdrs}
-          searchQuery=""
-          onSearchChange={onSearchChange}
-        />,
-      );
-
-      expect(screen.getByPlaceholderText('Search ADRs...')).toBeInTheDocument();
-    });
-
-    it('should call onSearchChange when search input changes', () => {
-      const onSearchChange = jest.fn();
-
-      renderWithProviders(
-        <AdrList
-          adrs={mockAdrs}
-          searchQuery=""
-          onSearchChange={onSearchChange}
-        />,
-      );
-
-      const searchInput = screen.getByPlaceholderText('Search ADRs...');
-      fireEvent.change(searchInput, { target: { value: 'oauth' } });
-
-      expect(onSearchChange).toHaveBeenCalledWith('oauth');
-    });
-
-    it('should render status filter when onStatusFilterChange provided', () => {
-      const onStatusFilterChange = jest.fn();
-
-      renderWithProviders(
-        <AdrList
-          adrs={mockAdrs}
-          statusFilter={[]}
-          onStatusFilterChange={onStatusFilterChange}
-        />,
-      );
-
-      expect(screen.getByText('All Statuses')).toBeInTheDocument();
-    });
-  });
 
   describe('links', () => {
     it('should create correct links to ADR detail pages', () => {

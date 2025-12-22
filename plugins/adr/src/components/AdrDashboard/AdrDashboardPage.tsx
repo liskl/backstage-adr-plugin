@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Content,
@@ -23,8 +23,10 @@ import {
 import Add from '@material-ui/icons/Add';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ListIcon from '@material-ui/icons/List';
+import { AdrFilters, SavedFilterPreset } from '@backstage-community/plugin-adr-common';
 import { adrApiRef } from '../../api';
 import { AdrList } from '../AdrList';
+import { AdrFilterBar } from '../AdrFilterBar';
 import { AdrStatsCards } from './AdrStatsCards';
 import { AdrPendingPrsList } from '../AdrActions';
 import { useAsync } from 'react-use';
@@ -190,43 +192,102 @@ export const AdrDashboardPage = () => {
   );
 };
 
+// Local storage key for saved filter presets
+const SAVED_PRESETS_KEY = 'adr-filter-presets';
+
+/**
+ * Load saved filter presets from local storage
+ */
+const loadSavedPresets = (): SavedFilterPreset[] => {
+  try {
+    const saved = localStorage.getItem(SAVED_PRESETS_KEY);
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
+};
+
+/**
+ * Save filter presets to local storage
+ */
+const saveSavedPresets = (presets: SavedFilterPreset[]): void => {
+  try {
+    localStorage.setItem(SAVED_PRESETS_KEY, JSON.stringify(presets));
+  } catch {
+    // Ignore storage errors
+  }
+};
+
 /**
  * ADR list with search and filter capabilities
  */
 const AdrListWithFilters = () => {
   const adrApi = useApi(adrApiRef);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string[]>([]);
+  const [filters, setFilters] = useState<AdrFilters>({});
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(20);
+  const [savedPresets, setSavedPresets] = useState<SavedFilterPreset[]>(loadSavedPresets);
+
+  // Fetch filter options
+  const { value: authors } = useAsync(() => adrApi.getAuthors(), [adrApi]);
+  const { value: repositories } = useAsync(() => adrApi.getRepositories(), [adrApi]);
+  const { value: categories } = useAsync(() => adrApi.getCategories(), [adrApi]);
 
   const { value: result, loading, error } = useAsync(async () => {
     return adrApi.listAdrs(
-      {
-        search: searchQuery || undefined,
-        status: statusFilter.length > 0 ? statusFilter as any : undefined,
-      },
+      filters,
       {
         limit: pageSize,
         offset: page * pageSize,
       },
     );
-  }, [adrApi, searchQuery, statusFilter, page, pageSize]);
+  }, [adrApi, filters, page, pageSize]);
+
+  const handleFiltersChange = useCallback((newFilters: AdrFilters) => {
+    setFilters(newFilters);
+    setPage(0); // Reset to first page when filters change
+  }, []);
+
+  const handleSavePreset = useCallback((name: string, presetFilters: AdrFilters) => {
+    const newPreset: SavedFilterPreset = {
+      id: `preset-${Date.now()}`,
+      name,
+      filters: presetFilters,
+      createdAt: new Date().toISOString(),
+    };
+    const newPresets = [...savedPresets, newPreset];
+    setSavedPresets(newPresets);
+    saveSavedPresets(newPresets);
+  }, [savedPresets]);
+
+  const handleDeletePreset = useCallback((id: string) => {
+    const newPresets = savedPresets.filter(p => p.id !== id);
+    setSavedPresets(newPresets);
+    saveSavedPresets(newPresets);
+  }, [savedPresets]);
 
   return (
-    <AdrList
-      adrs={result?.items || []}
-      totalCount={result?.totalCount || 0}
-      loading={loading}
-      error={error}
-      page={page}
-      pageSize={pageSize}
-      onPageChange={setPage}
-      onPageSizeChange={setPageSize}
-      searchQuery={searchQuery}
-      onSearchChange={setSearchQuery}
-      statusFilter={statusFilter}
-      onStatusFilterChange={setStatusFilter}
-    />
+    <Box>
+      <AdrFilterBar
+        filters={filters}
+        onFiltersChange={handleFiltersChange}
+        availableAuthors={authors || []}
+        availableRepositories={repositories || []}
+        availableCategories={categories || []}
+        savedPresets={savedPresets}
+        onSavePreset={handleSavePreset}
+        onDeletePreset={handleDeletePreset}
+      />
+      <AdrList
+        adrs={result?.items || []}
+        totalCount={result?.totalCount || 0}
+        loading={loading}
+        error={error}
+        page={page}
+        pageSize={pageSize}
+        onPageChange={setPage}
+        onPageSizeChange={setPageSize}
+      />
+    </Box>
   );
 };

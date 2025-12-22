@@ -3,31 +3,13 @@ import { Link, Table, TableColumn, WarningPanel } from '@backstage/core-componen
 import {
   Box,
   Chip,
-  InputAdornment,
-  MenuItem,
-  Select,
-  TextField,
   Typography,
   makeStyles,
 } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import { AdrSummary, AdrStatus } from '@backstage-community/plugin-adr-common';
+import { AdrSummary } from '@backstage-community/plugin-adr-common';
 import { AdrStatusBadge } from './AdrStatusBadge';
 
 const useStyles = makeStyles(theme => ({
-  searchBar: {
-    marginBottom: theme.spacing(2),
-    display: 'flex',
-    gap: theme.spacing(2),
-    alignItems: 'center',
-  },
-  searchField: {
-    flex: 1,
-    maxWidth: 400,
-  },
-  statusFilter: {
-    minWidth: 150,
-  },
   tags: {
     display: 'flex',
     gap: theme.spacing(0.5),
@@ -58,20 +40,7 @@ interface AdrListProps {
   pageSize?: number;
   onPageChange?: (page: number) => void;
   onPageSizeChange?: (pageSize: number) => void;
-  searchQuery?: string;
-  onSearchChange?: (query: string) => void;
-  statusFilter?: string[];
-  onStatusFilterChange?: (statuses: string[]) => void;
 }
-
-const STATUS_OPTIONS: AdrStatus[] = [
-  'draft',
-  'proposed',
-  'accepted',
-  'rejected',
-  'deprecated',
-  'superseded',
-];
 
 /**
  * List component for displaying ADRs
@@ -86,10 +55,6 @@ export const AdrList = ({
   pageSize = 20,
   onPageChange,
   onPageSizeChange,
-  searchQuery = '',
-  onSearchChange,
-  statusFilter = [],
-  onStatusFilterChange,
 }: AdrListProps) => {
   const classes = useStyles();
 
@@ -162,54 +127,8 @@ export const AdrList = ({
     );
   }
 
-  const showFilters = onSearchChange || onStatusFilterChange;
-
   return (
     <Box className={compact ? classes.compactList : undefined}>
-      {showFilters && (
-        <Box className={classes.searchBar}>
-          {onSearchChange && (
-            <TextField
-              className={classes.searchField}
-              placeholder="Search ADRs..."
-              variant="outlined"
-              size="small"
-              value={searchQuery}
-              onChange={e => onSearchChange(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon color="action" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-          {onStatusFilterChange && (
-            <Select
-              className={classes.statusFilter}
-              multiple
-              value={statusFilter}
-              onChange={e => onStatusFilterChange(e.target.value as string[])}
-              displayEmpty
-              variant="outlined"
-              renderValue={selected => {
-                if ((selected as string[]).length === 0) {
-                  return <em>All Statuses</em>;
-                }
-                return (selected as string[]).join(', ');
-              }}
-            >
-              {STATUS_OPTIONS.map(status => (
-                <MenuItem key={status} value={status}>
-                  {status.charAt(0).toUpperCase() + status.slice(1)}
-                </MenuItem>
-              ))}
-            </Select>
-          )}
-        </Box>
-      )}
-
       <Table
         data={adrs}
         columns={columns}

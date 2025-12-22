@@ -90,6 +90,18 @@ export class AdrClient implements AdrApi {
     if (filters?.search) {
       params.set('search', filters.search);
     }
+    if (filters?.createdAfter) {
+      params.set('createdAfter', filters.createdAfter);
+    }
+    if (filters?.createdBefore) {
+      params.set('createdBefore', filters.createdBefore);
+    }
+    if (filters?.updatedAfter) {
+      params.set('updatedAfter', filters.updatedAfter);
+    }
+    if (filters?.updatedBefore) {
+      params.set('updatedBefore', filters.updatedBefore);
+    }
     if (pagination?.limit) {
       params.set('limit', String(pagination.limit));
     }
@@ -177,6 +189,14 @@ export class AdrClient implements AdrApi {
 
   async getCategories(): Promise<string[]> {
     return this.fetch<string[]>('/categories');
+  }
+
+  async getAuthors(): Promise<string[]> {
+    return this.fetch<string[]>('/authors');
+  }
+
+  async getRepositories(): Promise<string[]> {
+    return this.fetch<string[]>('/repositories');
   }
 
   async getStats(): Promise<AdrStats> {

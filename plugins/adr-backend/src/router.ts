@@ -59,6 +59,10 @@ export async function createRouter(
       repositoryUrl,
       author,
       search,
+      createdAfter,
+      createdBefore,
+      updatedAfter,
+      updatedBefore,
       limit = '20',
       offset = '0',
     } = req.query;
@@ -70,6 +74,10 @@ export async function createRouter(
       repositoryUrl: repositoryUrl as string | undefined,
       author: author as string | undefined,
       search: search as string | undefined,
+      createdAfter: createdAfter as string | undefined,
+      createdBefore: createdBefore as string | undefined,
+      updatedAfter: updatedAfter as string | undefined,
+      updatedBefore: updatedBefore as string | undefined,
     };
 
     const pagination = {
@@ -160,6 +168,20 @@ export async function createRouter(
     const credentials = await httpAuth.credentials(req);
     const categories = await adrService.getCategories({ credentials });
     res.json(categories);
+  });
+
+  // Get all authors
+  router.get('/authors', async (req, res) => {
+    const credentials = await httpAuth.credentials(req);
+    const authors = await adrService.getAuthors({ credentials });
+    res.json(authors);
+  });
+
+  // Get all repositories
+  router.get('/repositories', async (req, res) => {
+    const credentials = await httpAuth.credentials(req);
+    const repositories = await adrService.getRepositories({ credentials });
+    res.json(repositories);
   });
 
   // Get dashboard statistics

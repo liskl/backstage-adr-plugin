@@ -78,6 +78,16 @@ export interface AdrApi {
   getCategories(): Promise<string[]>;
 
   /**
+   * Get all authors
+   */
+  getAuthors(): Promise<string[]>;
+
+  /**
+   * Get all repositories
+   */
+  getRepositories(): Promise<string[]>;
+
+  /**
    * Get dashboard statistics
    */
   getStats(): Promise<AdrStats>;

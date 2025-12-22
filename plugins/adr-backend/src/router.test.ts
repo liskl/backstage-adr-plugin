@@ -31,6 +31,12 @@ describe('ADR Router', () => {
       limit: 20,
     });
 
+    MockAdrService.prototype.getAuthors = jest.fn().mockResolvedValue(['alice', 'bob', 'charlie']);
+    MockAdrService.prototype.getRepositories = jest.fn().mockResolvedValue([
+      'https://github.com/org/repo1',
+      'https://github.com/org/repo2',
+    ]);
+
     const config = new ConfigReader({
       integrations: {
         github: [{ host: 'github.com', token: 'test-token' }],
@@ -69,29 +75,23 @@ describe('ADR Router', () => {
 
   describe('GET /authors', () => {
     it('should return list of authors', async () => {
-      const mockAuthors = ['alice', 'bob', 'charlie'];
-      MockAdrService.prototype.getAuthors = jest.fn().mockResolvedValue(mockAuthors);
-
       const response = await request(app).get('/authors');
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(mockAuthors);
+      expect(response.body).toEqual(['alice', 'bob', 'charlie']);
       expect(MockAdrService.prototype.getAuthors).toHaveBeenCalled();
     });
   });
 
   describe('GET /repositories', () => {
     it('should return list of repositories', async () => {
-      const mockRepositories = [
-        'https://github.com/org/repo1',
-        'https://github.com/org/repo2',
-      ];
-      MockAdrService.prototype.getRepositories = jest.fn().mockResolvedValue(mockRepositories);
-
       const response = await request(app).get('/repositories');
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(mockRepositories);
+      expect(response.body).toEqual([
+        'https://github.com/org/repo1',
+        'https://github.com/org/repo2',
+      ]);
       expect(MockAdrService.prototype.getRepositories).toHaveBeenCalled();
     });
   });

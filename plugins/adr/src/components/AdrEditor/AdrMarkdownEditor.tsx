@@ -204,6 +204,8 @@ export const AdrMarkdownEditor = ({
       case 'h2':
         insertText('\n## ');
         break;
+      default:
+        break;
     }
   };
 

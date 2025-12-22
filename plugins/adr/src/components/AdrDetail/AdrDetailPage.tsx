@@ -32,12 +32,10 @@ import {
   Typography,
   makeStyles,
 } from '@material-ui/core';
-import {
-  Edit,
-  Delete,
-  MoreVert,
-  SwapHoriz,
-} from '@material-ui/icons';
+import Edit from '@material-ui/icons/Edit';
+import Delete from '@material-ui/icons/Delete';
+import MoreVert from '@material-ui/icons/MoreVert';
+import SwapHoriz from '@material-ui/icons/SwapHoriz';
 import { Alert } from '@material-ui/lab';
 import ReactMarkdown from 'react-markdown';
 import { useAsync } from 'react-use';

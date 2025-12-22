@@ -10,13 +10,11 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core';
-import {
-  OpenInNew,
-  CheckCircle,
-  Cancel,
-  HourglassEmpty,
-  MergeType,
-} from '@material-ui/icons';
+import OpenInNew from '@material-ui/icons/OpenInNew';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import Cancel from '@material-ui/icons/Cancel';
+import HourglassEmpty from '@material-ui/icons/HourglassEmpty';
+import MergeType from '@material-ui/icons/MergeType';
 import { AdrPullRequest } from '@backstage-community/plugin-adr-common';
 
 const useStyles = makeStyles(theme => ({

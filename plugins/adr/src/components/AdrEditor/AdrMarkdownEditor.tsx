@@ -10,15 +10,13 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core';
-import {
-  FormatBold,
-  FormatItalic,
-  Code,
-  Link,
-  FormatListBulleted,
-  FormatListNumbered,
-  Title,
-} from '@material-ui/icons';
+import FormatBold from '@material-ui/icons/FormatBold';
+import FormatItalic from '@material-ui/icons/FormatItalic';
+import Code from '@material-ui/icons/Code';
+import LinkIcon from '@material-ui/icons/Link';
+import FormatListBulleted from '@material-ui/icons/FormatListBulleted';
+import FormatListNumbered from '@material-ui/icons/FormatListNumbered';
+import Title from '@material-ui/icons/Title';
 import ReactMarkdown from 'react-markdown';
 
 const useStyles = makeStyles(theme => ({
@@ -272,7 +270,7 @@ export const AdrMarkdownEditor = ({
           onClick={() => handleToolbarAction('link')}
           disabled={disabled}
         >
-          <Link fontSize="small" />
+          <LinkIcon fontSize="small" />
         </IconButton>
       </Tooltip>
     </div>

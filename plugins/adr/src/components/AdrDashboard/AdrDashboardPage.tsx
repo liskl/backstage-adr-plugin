@@ -20,7 +20,7 @@ import {
   Typography,
   makeStyles,
 } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import Add from '@material-ui/icons/Add';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ListIcon from '@material-ui/icons/List';
 import { adrApiRef } from '../../api';
@@ -181,6 +181,7 @@ export const AdrDashboardPage = () => {
           </TabPanel>
 
           <TabPanel value={tabValue} index={1}>
+            {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}
             <AdrListWithFilters />
           </TabPanel>
         </div>

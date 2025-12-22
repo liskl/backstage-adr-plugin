@@ -76,7 +76,7 @@ export const AdrMetadataForm = ({
     field: K,
     value: AdrMetadata[K],
   ) => {
-    onChange({ ...metadata, field, [field]: value });
+    onChange({ ...metadata, [field]: value });
   };
 
   return (
@@ -156,7 +156,7 @@ export const AdrMetadataForm = ({
             freeSolo
             options={[]}
             value={metadata.authors}
-            onChange={(_, newValue) => handleChange('authors', newValue)}
+            onChange={(_, newValue) => handleChange('authors', newValue as string[])}
             disabled={disabled}
             renderTags={(value, getTagProps) =>
               value.map((option, index) => (
@@ -185,7 +185,7 @@ export const AdrMetadataForm = ({
             freeSolo
             options={[]}
             value={metadata.decisionMakers}
-            onChange={(_, newValue) => handleChange('decisionMakers', newValue)}
+            onChange={(_, newValue) => handleChange('decisionMakers', newValue as string[])}
             disabled={disabled}
             renderTags={(value, getTagProps) =>
               value.map((option, index) => (
@@ -246,7 +246,7 @@ export const AdrMetadataForm = ({
               freeSolo
               options={[]}
               value={metadata.supersedes}
-              onChange={(_, newValue) => handleChange('supersedes', newValue)}
+              onChange={(_, newValue) => handleChange('supersedes', newValue as string[])}
               disabled={disabled}
               renderTags={(value, getTagProps) =>
                 value.map((option, index) => (

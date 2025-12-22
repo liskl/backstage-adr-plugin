@@ -3,8 +3,10 @@
   "include": ["src"],
   "exclude": ["node_modules"],
   "compilerOptions": {
-    "outDir": "dist-types",
-    "rootDir": "src"
+    "outDir": "../../dist-types/plugins/adr",
+    "rootDir": ".",
+    "composite": true,
+    "tsBuildInfoFile": "../../dist-types/plugins/adr/.tsbuildinfo"
   },
   "references": [
     { "path": "../adr-common" }

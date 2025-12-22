@@ -10,6 +10,7 @@ import express from 'express';
 import Router from 'express-promise-router';
 import { AdrService } from './service/AdrService';
 import { GitHubService } from './service/GitHubService';
+import { AdrStatus } from '@backstage-community/plugin-adr-common';
 
 /**
  * Options for creating the ADR router
@@ -63,7 +64,7 @@ export async function createRouter(
     } = req.query;
 
     const filters = {
-      status: status ? (status as string).split(',') : undefined,
+      status: status ? (status as string).split(',') as AdrStatus[] : undefined,
       tags: tags ? (tags as string).split(',') : undefined,
       category: category as string | undefined,
       repositoryUrl: repositoryUrl as string | undefined,

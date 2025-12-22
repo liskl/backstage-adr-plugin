@@ -94,6 +94,7 @@ export const AdrDeleteDialog = ({
             onChange={e => setConfirmText(e.target.value)}
             placeholder="delete"
             disabled={deleting}
+            // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
           />
         </Box>

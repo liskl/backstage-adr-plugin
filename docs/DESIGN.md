@@ -468,43 +468,46 @@ All significant decisions will be documented.
 - [x] Create design specification document
 - [x] Update README with project overview
 
-### Phase 1: Core Foundation
-- [ ] Project setup (frontend + backend plugins)
-- [ ] Basic ADR model and types
-- [ ] GitHub integration for reading ADRs
-- [ ] Sidebar navigation
-- [ ] Basic list view with pagination
-- [ ] ADR detail view (read-only)
+### Phase 1: Core Foundation ✅ COMPLETE
+- [x] Project setup (frontend + backend plugins)
+- [x] Basic ADR model and types
+- [x] GitHub integration for reading ADRs
+- [x] Sidebar navigation (route + instructions)
+- [x] Basic list view with pagination
+- [x] ADR detail view (read-only)
+- [x] Dashboard view with stats cards
+- [x] Search and status filter UI
 
 ### Phase 2: CRUD & PR Workflow
-- [ ] ADR editor component
-- [ ] Create ADR (generates PR)
+- [ ] ADR editor component (markdown editor with preview)
+- [ ] Create ADR wizard (generates PR)
 - [ ] Edit ADR (generates PR)
 - [ ] Delete ADR (generates PR)
-- [ ] PR status tracking
+- [ ] PR status tracking UI
 - [ ] Status change functionality
 
 ### Phase 3: Search & Organization
-- [ ] Full-text search
-- [ ] Filters (status, date, author, repo)
-- [ ] Tags and categories
+- [x] Full-text search (basic implementation)
+- [x] Filters (status) - basic implementation
+- [ ] Filters (date, author, repo)
+- [x] Tags and categories display
 - [ ] Saved filter presets
 
 ### Phase 4: Dashboard & Visualizations
-- [ ] Dashboard statistics
-- [ ] Charts (status distribution, timeline)
+- [x] Dashboard statistics (stats cards)
+- [ ] Charts (status distribution pie/bar chart)
 - [ ] Timeline view
 - [ ] Relationship graph view
 
 ### Phase 5: Relationships & Integration
-- [ ] ADR-to-ADR relationships
-- [ ] Entity linking
-- [ ] Entity page tab (optional)
+- [x] ADR-to-ADR relationships (data model)
+- [x] Entity linking (data model + basic display)
+- [ ] Entity page tab component
 - [ ] Backstage search integration
 
 ### Phase 6: Polish & Enhancement
-- [ ] Multiple template support
-- [ ] Custom template creation
+- [x] Multiple template support (MADR v3, Nygard)
+- [ ] Custom template creation UI
 - [ ] Keyboard shortcuts
 - [ ] Export functionality
 - [ ] Accessibility audit

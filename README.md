@@ -12,6 +12,30 @@ A Backstage plugin for managing Architecture Decision Records (ADRs) with organi
 - **Visualizations** - Dashboard with stats and timeline views
 - **Entity Linking** - Connect ADRs to Backstage catalog entities
 
+## Project Status
+
+This plugin is under active development. See the [CHANGELOG](CHANGELOG.md) for release history.
+
+| Phase | Status | Description |
+|-------|--------|-------------|
+| Phase 0 | ✅ Complete | Documentation & design specification |
+| Phase 1 | ✅ Complete | Core foundation (list, detail, dashboard views) |
+| Phase 2 | 🚧 Next | CRUD operations & PR workflow |
+| Phase 3 | ⏳ Planned | Advanced search & saved filters |
+| Phase 4 | ⏳ Planned | Timeline & graph visualizations |
+| Phase 5 | ⏳ Planned | Entity integration & Backstage search |
+| Phase 6 | ⏳ Planned | Polish & accessibility |
+
+### Current Capabilities (v0.1.0)
+- ✅ View ADRs from annotated catalog entities
+- ✅ Dashboard with status statistics
+- ✅ List view with search and status filters
+- ✅ Detail view with markdown rendering
+- ✅ MADR v3 and Nygard format parsing
+- ✅ Backend API with 15 endpoints
+- ⏳ Create/Edit/Delete ADRs (coming in Phase 2)
+- ⏳ PR creation workflow (coming in Phase 2)
+
 ## Packages
 
 | Package | Description |
@@ -188,6 +212,7 @@ yarn lint
 ## Documentation
 
 - [Design Specification](docs/DESIGN.md) - Complete functional and technical requirements
+- [Changelog](CHANGELOG.md) - Version history and release notes
 
 ## References
 

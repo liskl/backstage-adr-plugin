@@ -227,6 +227,8 @@ export const AdrEditorPage = () => {
           content,
           status: metadata.status,
           repositoryUrl,
+          directoryPath: 'docs/adr',
+          templateId: selectedTemplateId,
           format: templates.find(t => t.id === selectedTemplateId)?.format || 'madr-v3',
           authors: metadata.authors,
           decisionMakers: metadata.decisionMakers,

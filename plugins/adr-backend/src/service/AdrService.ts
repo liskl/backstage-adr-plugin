@@ -130,7 +130,6 @@ Describe the resulting context after applying the decision.
  */
 export class AdrService {
   private readonly logger: LoggerService;
-  private readonly _config: Config;
   private readonly discovery: DiscoveryService;
   private readonly auth: AuthService;
   private readonly githubService: GitHubService;
@@ -142,7 +141,6 @@ export class AdrService {
 
   constructor(options: AdrServiceOptions) {
     this.logger = options.logger;
-    this._config = options.config;
     this.discovery = options.discovery;
     this.auth = options.auth;
     this.githubService = options.githubService;
@@ -494,6 +492,8 @@ export class AdrService {
         state: 'open',
         branch: branchName,
         adrId: id,
+        author: 'backstage',
+        merged: false,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       },
@@ -566,6 +566,8 @@ export class AdrService {
         state: 'open',
         branch: branchName,
         adrId: id,
+        author: 'backstage',
+        merged: false,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       },
@@ -618,6 +620,8 @@ export class AdrService {
       state: 'open',
       branch: branchName,
       adrId: id,
+      author: 'backstage',
+      merged: false,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

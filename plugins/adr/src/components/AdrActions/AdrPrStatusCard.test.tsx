@@ -14,6 +14,7 @@ class ResizeObserverMock {
 global.ResizeObserver = ResizeObserverMock as any;
 
 // Suppress Material-UI deprecation warnings about findDOMNode
+/* eslint-disable no-console */
 const originalError = console.error;
 beforeAll(() => {
   console.error = (...args: any[]) => {
@@ -27,6 +28,7 @@ beforeAll(() => {
 afterAll(() => {
   console.error = originalError;
 });
+/* eslint-enable no-console */
 
 const renderWithTheme = (component: React.ReactElement) => {
   return render(

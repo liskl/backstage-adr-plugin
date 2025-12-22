@@ -252,11 +252,20 @@ export interface CreateAdrRequest {
   /** Template ID to use */
   templateId: string;
 
+  /** ADR format */
+  format?: AdrFormat;
+
   /** Initial content (optional, uses template default if not provided) */
   content?: string;
 
   /** Initial status */
   status?: AdrStatus;
+
+  /** Authors */
+  authors?: string[];
+
+  /** Decision makers */
+  decisionMakers?: string[];
 
   /** Tags */
   tags?: string[];
@@ -280,6 +289,12 @@ export interface UpdateAdrRequest {
 
   /** Updated status */
   status?: AdrStatus;
+
+  /** Updated authors */
+  authors?: string[];
+
+  /** Updated decision makers */
+  decisionMakers?: string[];
 
   /** Updated tags */
   tags?: string[];
@@ -305,19 +320,28 @@ export interface AdrPullRequest {
   url: string;
 
   /** PR state */
-  state: 'open' | 'closed' | 'merged';
+  state: 'open' | 'closed';
 
   /** Branch name */
-  branch: string;
+  branch?: string;
 
   /** Associated ADR ID */
-  adrId: string;
+  adrId?: string;
+
+  /** PR author username */
+  author: string;
+
+  /** Whether the PR has been merged */
+  merged: boolean;
+
+  /** Merged at timestamp (if merged) */
+  mergedAt?: string;
 
   /** Created at timestamp */
   createdAt: string;
 
   /** Updated at timestamp */
-  updatedAt: string;
+  updatedAt?: string;
 }
 
 /**

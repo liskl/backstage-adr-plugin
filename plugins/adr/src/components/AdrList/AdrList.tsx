@@ -3,7 +3,6 @@ import { Link, Table, TableColumn, WarningPanel } from '@backstage/core-componen
 import {
   Box,
   Chip,
-  IconButton,
   InputAdornment,
   MenuItem,
   Select,

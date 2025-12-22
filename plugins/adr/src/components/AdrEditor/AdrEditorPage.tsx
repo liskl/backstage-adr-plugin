@@ -32,7 +32,6 @@ import { AdrTemplateSelector } from './AdrTemplateSelector';
 import {
   Adr,
   AdrTemplate,
-  AdrStatus,
 } from '@backstage-community/plugin-adr-common';
 
 const useStyles = makeStyles(theme => ({
@@ -145,7 +144,7 @@ export const AdrEditorPage = () => {
               authors: adr.authors,
               decisionMakers: adr.decisionMakers,
               tags: adr.tags,
-              category: adr.category,
+              category: adr.category || '',
               supersedes: adr.supersedes,
             });
             setContent(adr.content);

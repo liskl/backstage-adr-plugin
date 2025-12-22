@@ -24,6 +24,13 @@ describe('ADR Router', () => {
       { id: 'nygard', name: 'Nygard', format: 'nygard' },
     ]);
 
+    MockAdrService.prototype.listAdrs = jest.fn().mockResolvedValue({
+      items: [],
+      totalCount: 0,
+      offset: 0,
+      limit: 20,
+    });
+
     const config = new ConfigReader({
       integrations: {
         github: [{ host: 'github.com', token: 'test-token' }],
@@ -90,15 +97,6 @@ describe('ADR Router', () => {
   });
 
   describe('GET /adrs with filters', () => {
-    beforeEach(() => {
-      MockAdrService.prototype.listAdrs = jest.fn().mockResolvedValue({
-        items: [],
-        totalCount: 0,
-        offset: 0,
-        limit: 20,
-      });
-    });
-
     it('should pass date filters to service', async () => {
       await request(app).get('/adrs')
         .query({

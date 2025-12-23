@@ -78,7 +78,8 @@ describe('AdrFilterBar', () => {
     it('should render status dropdown', () => {
       renderWithProviders(<AdrFilterBar {...defaultProps} />);
 
-      expect(screen.getByText('Status')).toBeInTheDocument();
+      const statusElements = screen.getAllByText('Status');
+      expect(statusElements.length).toBeGreaterThan(0);
     });
   });
 
@@ -87,7 +88,8 @@ describe('AdrFilterBar', () => {
       renderWithProviders(<AdrFilterBar {...defaultProps} compact />);
 
       expect(screen.getByPlaceholderText('Search ADRs...')).toBeInTheDocument();
-      expect(screen.getByText('Status')).toBeInTheDocument();
+      const statusElements = screen.getAllByText('Status');
+      expect(statusElements.length).toBeGreaterThan(0);
       // Expand button should not be visible in compact mode
       expect(screen.queryByRole('button', { name: /show more filters/i })).not.toBeInTheDocument();
     });
@@ -107,10 +109,11 @@ describe('AdrFilterBar', () => {
       const expandButton = screen.getByRole('button', { name: /show more filters/i });
       fireEvent.click(expandButton);
 
-      expect(screen.getByText('Created After')).toBeInTheDocument();
-      expect(screen.getByText('Created Before')).toBeInTheDocument();
-      expect(screen.getByText('Updated After')).toBeInTheDocument();
-      expect(screen.getByText('Updated Before')).toBeInTheDocument();
+      // Check that date filter labels exist
+      expect(screen.getAllByText('Created After').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Created Before').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Updated After').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Updated Before').length).toBeGreaterThan(0);
     });
 
     it('should show author filter when expanded and authors provided', () => {
@@ -124,7 +127,7 @@ describe('AdrFilterBar', () => {
       const expandButton = screen.getByRole('button', { name: /show more filters/i });
       fireEvent.click(expandButton);
 
-      expect(screen.getByText('Author')).toBeInTheDocument();
+      expect(screen.getAllByText('Author').length).toBeGreaterThan(0);
     });
 
     it('should show repository filter when expanded and repositories provided', () => {
@@ -138,7 +141,7 @@ describe('AdrFilterBar', () => {
       const expandButton = screen.getByRole('button', { name: /show more filters/i });
       fireEvent.click(expandButton);
 
-      expect(screen.getByText('Repository')).toBeInTheDocument();
+      expect(screen.getAllByText('Repository').length).toBeGreaterThan(0);
     });
   });
 

@@ -8,7 +8,66 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Phase 3: Search & Organization (planned)
+- Phase 4: Dashboard & Visualizations (planned)
+
+## [0.3.0] - 2024-12-22
+
+### Added
+
+#### Phase 3: Search & Organization
+
+**AdrFilterBar Component**
+- New comprehensive filter bar component with search and advanced filters
+- Full-text search input with debounced updates
+- Status dropdown filter with multi-select support
+- Expandable filter panel for advanced options
+- Compact mode for space-constrained layouts
+
+**Date Range Filters**
+- Created After/Before date filters
+- Updated After/Before date filters
+- Date picker inputs with proper date formatting
+
+**Author & Repository Filters**
+- Author dropdown populated from ADR authors
+- Repository dropdown for multi-repo filtering
+- New API endpoints: `GET /authors`, `GET /repositories`
+
+**Saved Filter Presets**
+- Built-in presets: "Active Decisions", "Pending Review", "Updated Recently"
+- Custom preset creation via dialog
+- Preset deletion for user-created presets
+- localStorage persistence for user presets
+
+**Active Filters Display**
+- Visual chips showing all active filters
+- Individual filter removal via chip delete
+- "Clear All Filters" button
+- Hide/Show toggle for expanded filter panel
+
+**Dashboard Integration**
+- AdrFilterBar integrated into AdrDashboardPage
+- Filters persist across dashboard/list tab switches
+- Author and repository lists fetched from API
+
+#### New Components
+- `AdrFilterBar` - Comprehensive search and filter component
+
+#### New API Endpoints
+- `GET /api/adr/authors` - List all unique ADR authors
+- `GET /api/adr/repositories` - List all unique ADR repositories
+
+#### Tests
+- 27 new tests for AdrFilterBar component
+- Updated router tests for new endpoints
+- Updated AdrService tests for getAuthors/getRepositories
+- Total: 102 tests across all packages
+
+### Technical Details
+- ~600 lines of new component code
+- Full TypeScript type safety
+- localStorage for preset persistence
+- Material-UI Select, TextField, Chip components
 
 ## [0.2.0] - 2024-12-22
 
@@ -139,6 +198,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - React 17/18 compatible
 - Material-UI v4 components
 
-[Unreleased]: https://github.com/liskl/backstage-adr-plugin/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/liskl/backstage-adr-plugin/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/liskl/backstage-adr-plugin/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/liskl/backstage-adr-plugin/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/liskl/backstage-adr-plugin/releases/tag/v0.1.0

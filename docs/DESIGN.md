@@ -156,6 +156,8 @@ plugins/
 │   │   │   ├── AdrList/
 │   │   │   ├── AdrDetail/
 │   │   │   ├── AdrEditor/
+│   │   │   ├── AdrFilterBar/     # Search & filter UI
+│   │   │   ├── AdrActions/
 │   │   │   ├── AdrTimeline/
 │   │   │   ├── AdrGraph/
 │   │   │   └── AdrSidebar/
@@ -275,6 +277,31 @@ interface AdrIndexEntry {
 }
 ```
 
+### 5.4 ADR Filters
+```typescript
+interface AdrFilters {
+  search?: string;               // Full-text search query
+  status?: AdrStatus[];          // Filter by status(es)
+  author?: string[];             // Filter by author(s)
+  repository?: string[];         // Filter by repository URL(s)
+  createdAfter?: string;         // ISO date - created on or after
+  createdBefore?: string;        // ISO date - created on or before
+  updatedAfter?: string;         // ISO date - updated on or after
+  updatedBefore?: string;        // ISO date - updated on or before
+}
+```
+
+### 5.5 Saved Filter Preset
+```typescript
+interface SavedFilterPreset {
+  id: string;                    // Unique identifier
+  name: string;                  // Display name
+  filters: AdrFilters;           // The filter configuration
+  createdAt: string;             // ISO date of creation
+  isBuiltIn?: boolean;           // True for default presets
+}
+```
+
 ---
 
 ## 6. API Endpoints
@@ -296,6 +323,8 @@ interface AdrIndexEntry {
 | GET | `/api/adr/tags` | List all tags |
 | GET | `/api/adr/categories` | List all categories |
 | GET | `/api/adr/stats` | Dashboard statistics |
+| GET | `/api/adr/authors` | List all unique ADR authors |
+| GET | `/api/adr/repositories` | List all unique ADR repositories |
 
 ### 6.3 Templates
 | Method | Endpoint | Description |

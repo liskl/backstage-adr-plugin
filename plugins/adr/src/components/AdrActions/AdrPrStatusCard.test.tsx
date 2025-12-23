@@ -5,6 +5,31 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { lightTheme } from '@backstage/theme';
 import { AdrPullRequest } from '@backstage-community/plugin-adr-common';
 
+// Mock ResizeObserver for tests
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+global.ResizeObserver = ResizeObserverMock as any;
+
+// Suppress Material-UI deprecation warnings about findDOMNode
+/* eslint-disable no-console */
+const originalError = console.error;
+beforeAll(() => {
+  console.error = (...args: any[]) => {
+    if (typeof args[0] === 'string' && args[0].includes('findDOMNode is deprecated')) {
+      return;
+    }
+    originalError.call(console, ...args);
+  };
+});
+
+afterAll(() => {
+  console.error = originalError;
+});
+/* eslint-enable no-console */
+
 const renderWithTheme = (component: React.ReactElement) => {
   return render(
     <ThemeProvider theme={lightTheme}>{component}</ThemeProvider>,

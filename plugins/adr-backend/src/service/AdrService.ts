@@ -364,6 +364,22 @@ export class AdrService {
           adr.content.toLowerCase().includes(searchLower),
       );
     }
+    if (filters.createdAfter) {
+      const afterDate = new Date(filters.createdAfter);
+      adrs = adrs.filter(adr => new Date(adr.createdAt) >= afterDate);
+    }
+    if (filters.createdBefore) {
+      const beforeDate = new Date(filters.createdBefore);
+      adrs = adrs.filter(adr => new Date(adr.createdAt) <= beforeDate);
+    }
+    if (filters.updatedAfter) {
+      const afterDate = new Date(filters.updatedAfter);
+      adrs = adrs.filter(adr => new Date(adr.updatedAt) >= afterDate);
+    }
+    if (filters.updatedBefore) {
+      const beforeDate = new Date(filters.updatedBefore);
+      adrs = adrs.filter(adr => new Date(adr.updatedAt) <= beforeDate);
+    }
 
     // Sort by updated date (most recent first)
     adrs.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
@@ -680,6 +696,30 @@ export class AdrService {
       }
     }
     return Array.from(categorySet).sort();
+  }
+
+  /**
+   * Get all authors
+   */
+  async getAuthors(context: ServiceContext): Promise<string[]> {
+    await this.ensureCache(context);
+    const authorSet = new Set<string>();
+    for (const adr of this.adrCache.values()) {
+      adr.authors.forEach(author => authorSet.add(author));
+    }
+    return Array.from(authorSet).sort();
+  }
+
+  /**
+   * Get all repositories
+   */
+  async getRepositories(context: ServiceContext): Promise<string[]> {
+    await this.ensureCache(context);
+    const repoSet = new Set<string>();
+    for (const adr of this.adrCache.values()) {
+      repoSet.add(adr.repositoryUrl);
+    }
+    return Array.from(repoSet).sort();
   }
 
   /**

@@ -20,21 +20,37 @@ This plugin is under active development. See the [CHANGELOG](CHANGELOG.md) for r
 |-------|--------|-------------|
 | Phase 0 | ✅ Complete | Documentation & design specification |
 | Phase 1 | ✅ Complete | Core foundation (list, detail, dashboard views) |
-| Phase 2 | 🚧 Next | CRUD operations & PR workflow |
-| Phase 3 | ⏳ Planned | Advanced search & saved filters |
-| Phase 4 | ⏳ Planned | Timeline & graph visualizations |
+| Phase 2 | ✅ Complete | CRUD operations & PR workflow |
+| Phase 3 | ✅ Complete | Advanced search & saved filters |
+| Phase 4 | 🚧 Next | Timeline & graph visualizations |
 | Phase 5 | ⏳ Planned | Entity integration & Backstage search |
 | Phase 6 | ⏳ Planned | Polish & accessibility |
 
-### Current Capabilities (v0.1.0)
+### Current Capabilities (v0.3.0)
+
+**Core Features:**
 - ✅ View ADRs from annotated catalog entities
 - ✅ Dashboard with status statistics
 - ✅ List view with search and status filters
 - ✅ Detail view with markdown rendering
 - ✅ MADR v3 and Nygard format parsing
-- ✅ Backend API with 15 endpoints
-- ⏳ Create/Edit/Delete ADRs (coming in Phase 2)
-- ⏳ PR creation workflow (coming in Phase 2)
+- ✅ Backend API with 17 endpoints
+
+**CRUD & PR Workflow (Phase 2):**
+- ✅ Create new ADRs via step-by-step wizard
+- ✅ Edit existing ADRs with markdown editor
+- ✅ Delete ADRs with confirmation dialog
+- ✅ Change ADR status with visual dialog
+- ✅ All changes create GitHub Pull Requests
+- ✅ Pending PR tracking on dashboard
+
+**Advanced Filtering (Phase 3):**
+- ✅ Full-text search across ADR content
+- ✅ Filter by status, date range, author, repository
+- ✅ Date filters: created after/before, updated after/before
+- ✅ Saved filter presets (built-in and custom)
+- ✅ Active filter chips with clear all option
+- ✅ Expandable filter panel with compact mode
 
 ## Packages
 

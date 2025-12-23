@@ -6,6 +6,23 @@ import { lightTheme } from '@backstage/theme';
 import { TestApiProvider } from '@backstage/test-utils';
 import { adrApiRef } from '../../api';
 
+// Suppress Material-UI deprecation warnings about findDOMNode
+/* eslint-disable no-console */
+const originalError = console.error;
+beforeAll(() => {
+  console.error = (...args: any[]) => {
+    if (typeof args[0] === 'string' && args[0].includes('findDOMNode is deprecated')) {
+      return;
+    }
+    originalError.call(console, ...args);
+  };
+});
+
+afterAll(() => {
+  console.error = originalError;
+});
+/* eslint-enable no-console */
+
 const mockAdrApi = {
   updateAdrStatus: jest.fn(),
 };

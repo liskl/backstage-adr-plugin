@@ -94,6 +94,57 @@ describe('AdrClient', () => {
         expect.any(Object),
       );
     });
+
+    it('should include date range filters', async () => {
+      mockFetchApi.fetch.mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve({ items: [], totalCount: 0, offset: 0, limit: 20 }),
+      } as Response);
+
+      await client.listAdrs({
+        createdAfter: '2024-01-01',
+        createdBefore: '2024-12-31',
+        updatedAfter: '2024-06-01',
+        updatedBefore: '2024-06-30',
+      });
+
+      const url = mockFetchApi.fetch.mock.calls[0][0] as string;
+      expect(url).toContain('createdAfter=2024-01-01');
+      expect(url).toContain('createdBefore=2024-12-31');
+      expect(url).toContain('updatedAfter=2024-06-01');
+      expect(url).toContain('updatedBefore=2024-06-30');
+    });
+
+    it('should include author filter', async () => {
+      mockFetchApi.fetch.mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve({ items: [], totalCount: 0, offset: 0, limit: 20 }),
+      } as Response);
+
+      await client.listAdrs({ author: 'alice' });
+
+      expect(mockFetchApi.fetch).toHaveBeenCalledWith(
+        expect.stringContaining('author=alice'),
+        expect.any(Object),
+      );
+    });
+
+    it('should include repository filter', async () => {
+      mockFetchApi.fetch.mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve({ items: [], totalCount: 0, offset: 0, limit: 20 }),
+      } as Response);
+
+      await client.listAdrs({ repositoryUrl: 'https://github.com/org/repo' });
+
+      expect(mockFetchApi.fetch).toHaveBeenCalledWith(
+        expect.stringContaining('repositoryUrl='),
+        expect.any(Object),
+      );
+    });
   });
 
   describe('getAdr', () => {
@@ -218,6 +269,49 @@ describe('AdrClient', () => {
         expect.any(Object),
       );
       expect(result).toEqual(mockCategories);
+    });
+  });
+
+  describe('getAuthors', () => {
+    it('should fetch all authors', async () => {
+      const mockAuthors = ['alice', 'bob', 'charlie'];
+
+      mockFetchApi.fetch.mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve(mockAuthors),
+      } as Response);
+
+      const result = await client.getAuthors();
+
+      expect(mockFetchApi.fetch).toHaveBeenCalledWith(
+        'http://localhost:7007/api/adr/authors',
+        expect.any(Object),
+      );
+      expect(result).toEqual(mockAuthors);
+    });
+  });
+
+  describe('getRepositories', () => {
+    it('should fetch all repositories', async () => {
+      const mockRepositories = [
+        'https://github.com/org/repo1',
+        'https://github.com/org/repo2',
+      ];
+
+      mockFetchApi.fetch.mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve(mockRepositories),
+      } as Response);
+
+      const result = await client.getRepositories();
+
+      expect(mockFetchApi.fetch).toHaveBeenCalledWith(
+        'http://localhost:7007/api/adr/repositories',
+        expect.any(Object),
+      );
+      expect(result).toEqual(mockRepositories);
     });
   });
 

@@ -166,6 +166,26 @@ export interface AdrFilters {
 }
 
 /**
+ * Saved filter preset for quick access to common filter combinations
+ */
+export interface SavedFilterPreset {
+  /** Unique identifier */
+  id: string;
+
+  /** Display name for the preset */
+  name: string;
+
+  /** Filter configuration */
+  filters: AdrFilters;
+
+  /** Whether this is a system default preset */
+  isDefault?: boolean;
+
+  /** ISO date when this preset was created */
+  createdAt: string;
+}
+
+/**
  * Pagination options
  */
 export interface PaginationOptions {

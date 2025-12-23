@@ -64,10 +64,13 @@ Frontend: AdrClient → React components
 ### Key Frontend Components
 
 **Core Views:**
-- **AdrDashboardPage**: Stats cards + tabbed dashboard/list view + pending PRs
+- **AdrDashboardPage**: Stats cards + tabbed dashboard/list view + pending PRs + advanced filters
 - **AdrDetailPage**: Markdown rendering with metadata sidebar + edit/delete/status actions
 - **AdrList**: Paginated table with search and status filters
 - **AdrStatusBadge**: Color-coded status chip
+
+**Filter Components** (`components/AdrFilterBar/`):
+- **AdrFilterBar**: Comprehensive filter bar with search, status, date range, author, and repository filters; includes saved preset management and active filter chips
 
 **Editor Components** (`components/AdrEditor/`):
 - **AdrEditorPage**: Step-by-step wizard for create/edit (Template → Metadata → Content → Review)
@@ -88,6 +91,8 @@ All endpoints under `/api/adr/`:
 - `GET /adrs/:id` - Single ADR
 - `POST/PUT/DELETE /adrs` - CRUD (creates PRs)
 - `GET /search`, `/tags`, `/categories`, `/stats` - Discovery
+- `GET /authors` - List unique ADR authors
+- `GET /repositories` - List unique ADR repositories
 - `GET /templates` - Available ADR templates
 
 ## ADR Format Support
@@ -103,6 +108,7 @@ Detection is automatic based on content structure.
 
 - **Phase 1 (Core Foundation)**: Complete - Basic ADR model, GitHub integration, list/detail views
 - **Phase 2 (CRUD & PR Workflow)**: Complete - Editor, create/edit/delete dialogs, PR tracking
-- **Phase 3 (Search & Organization)**: In progress - Full-text search, advanced filters, saved presets
+- **Phase 3 (Search & Organization)**: Complete - AdrFilterBar with date/author/repo filters, saved presets
+- **Phase 4 (Dashboard & Visualizations)**: Next - Charts, timeline view, relationship graph
 
 See `docs/DESIGN.md` for the full roadmap and requirements.

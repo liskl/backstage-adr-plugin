@@ -2673,10 +2673,10 @@
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
 
-"@backstage/integration@^1.15.0", "@backstage/integration@^1.15.2", "@backstage/integration@^1.19.0":
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-1.19.0.tgz#f456e16214e61a3b66b1c4544b1c165aaf0258eb"
-  integrity sha512-WR9cFbDr1WCoI1jML/zt9wrZCSqQCbQ61CNAi/fYYv5SiDbhhpOVm56qr+5BZjowKRr6qmcuzu9Vb6HpSDbwTw==
+"@backstage/integration@^1.15.0", "@backstage/integration@^1.15.2", "@backstage/integration@^1.19.0", "@backstage/integration@^1.20.1":
+  version "1.20.1"
+  resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-1.20.1.tgz#6a3b4eba069734d1abf2f779ce0b6c483051a35b"
+  integrity sha512-rfYMauJAq0BcEPcAm3em/NJC8Gvu3WzRfbgr3onEdjEc0/hEE2ffXmTcMSZykieltV3IAMHwfF2UBm0eV+hOhQ==
   dependencies:
     "@azure/identity" "^4.0.0"
     "@azure/storage-blob" "^12.5.0"
